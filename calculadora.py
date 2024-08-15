@@ -20,7 +20,7 @@ def evaluate():
 root = tk.Tk()
 root.title("Calculadora")
 
-entry = tk.Entry(root, width=16, font=('Arial', 24), borderwidth=5, relief="groove")
+entry = tk.Entry(root, width=10, font=('Arial', 24), borderwidth=5, relief="groove")
 entry.grid(row=0, column=0, columnspan=4)
 
 buttons = [
