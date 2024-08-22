@@ -33,19 +33,32 @@ imagen_actual = random.randint(0, len(imagenes) - 1)
 
 # Mostrar la primera imagen
 img = Image.open(imagenes[imagen_actual])
-img = img.resize((200, 200), Image.LANCZOS)
+img = img.resize((400, 350), Image.LANCZOS)
 img = ImageTk.PhotoImage(img)
 img_label = tk.Label(root, image=img)
 img_label.grid(row=0, column=0, columnspan=3)
 
-# Botones de los contenedores
-btn_papel = tk.Button(root, text="Papel", command=lambda: verificar_respuesta("papel"))
+# Cargar imágenes para los botones
+img_papel = Image.open("imagenes/papel_icono.jpg")
+img_papel = img_papel.resize((50, 50), Image.LANCZOS)
+img_papel = ImageTk.PhotoImage(img_papel)
+
+img_plastico = Image.open("imagenes/plastico_icono.jpg")
+img_plastico = img_plastico.resize((50, 50), Image.LANCZOS)
+img_plastico = ImageTk.PhotoImage(img_plastico)
+
+img_vidrio = Image.open("imagenes/vidrio_icono.jpg")
+img_vidrio = img_vidrio.resize((50, 50), Image.LANCZOS)
+img_vidrio = ImageTk.PhotoImage(img_vidrio)
+
+# Botones de los contenedores con imágenes
+btn_papel = tk.Button(root, image=img_papel, command=lambda: verificar_respuesta("papel"))
 btn_papel.grid(row=1, column=0)
 
-btn_plastico = tk.Button(root, text="Plástico", command=lambda: verificar_respuesta("plastico"))
+btn_plastico = tk.Button(root, image=img_plastico, command=lambda: verificar_respuesta("plastico"))
 btn_plastico.grid(row=1, column=1)
 
-btn_vidrio = tk.Button(root, text="Vidrio", command=lambda: verificar_respuesta("vidrio"))
+btn_vidrio = tk.Button(root, image=img_vidrio, command=lambda: verificar_respuesta("vidrio"))
 btn_vidrio.grid(row=1, column=2)
 
 root.mainloop()
