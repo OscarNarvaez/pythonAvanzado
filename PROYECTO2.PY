@@ -39,15 +39,15 @@ img_label = tk.Label(root, image=img)
 img_label.grid(row=0, column=0, columnspan=3)
 
 # Cargar imágenes para los botones
-img_papel = Image.open("imagenes/papel_icono.jpg")
+img_papel = Image.open("imagenes/basureroPapel.jpg")
 img_papel = img_papel.resize((50, 50), Image.LANCZOS)
 img_papel = ImageTk.PhotoImage(img_papel)
 
-img_plastico = Image.open("imagenes/plastico_icono.jpg")
+img_plastico = Image.open("imagenes/basureroPlastico.jpg")
 img_plastico = img_plastico.resize((50, 50), Image.LANCZOS)
 img_plastico = ImageTk.PhotoImage(img_plastico)
 
-img_vidrio = Image.open("imagenes/vidrio_icono.jpg")
+img_vidrio = Image.open("imagenes/basureroPlastico.jpg")
 img_vidrio = img_vidrio.resize((50, 50), Image.LANCZOS)
 img_vidrio = ImageTk.PhotoImage(img_vidrio)
 
