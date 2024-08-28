@@ -7,6 +7,8 @@ class Quiz:
     def __init__(self, root):
         self.root = root
         self.container_images = self.load_container_images()
+        
+        self.root.configure(bg="#ADD8E6")
 
         # Lista de imágenes de basuras y sus respuestas correctas
         self.trash_images = [
@@ -23,9 +25,9 @@ class Quiz:
 
     def load_container_images(self):
         # Cargar y redimensionar imágenes de los contenedores
-        container1_img = Image.open("imagenes/contenedores/contenedor_plastico.png").resize((100, 100))  # Contenedor de plástico
-        container2_img = Image.open("imagenes/contenedores/contenedor_organico.png").resize((100, 100))  # Contenedor de comida
-        container3_img = Image.open("imagenes/contenedores/contenedor_otros.png").resize((100, 100))  # Contenedor de desperdicios
+        container1_img = Image.open("imagenes/contenedores/contenedor_plastico.png").resize((200, 150))  # Contenedor de plástico
+        container2_img = Image.open("imagenes/contenedores/contenedor_organico.png").resize((200, 150))  # Contenedor de comida
+        container3_img = Image.open("imagenes/contenedores/contenedor_otros.png").resize((200, 150))  # Contenedor de desperdicios
         return {
             "plastico": ImageTk.PhotoImage(container1_img),
             "comida": ImageTk.PhotoImage(container2_img),
@@ -44,7 +46,7 @@ class Quiz:
         correct_answer = question["correct"]
 
         # Mostrar la imagen de la basura
-        trash_image = Image.open(trash_image_path).resize((100, 100))
+        trash_image = Image.open(trash_image_path).resize((300, 250))
         trash_photo = ImageTk.PhotoImage(trash_image)
         trash_label = tk.Label(self.root, image=trash_photo)
         trash_label.image = trash_photo
@@ -65,7 +67,7 @@ class Quiz:
 
     def check_answer(self, answer, correct_answer):
         if answer == correct_answer:
-            messagebox.showinfo("Correcto", "¡Buena elección!")
+            messagebox.showinfo("Muy Bien", "¡Buena elección!")
         else:
             messagebox.showerror("Incorrecto", f"Este producto no debe ir en el contenedor de {answer}. Intenta de nuevo.")
         

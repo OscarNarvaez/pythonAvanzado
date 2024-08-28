@@ -9,6 +9,7 @@ class VideoPlayer:
 
     def play_video(self):
         # Reproducir el video en un hilo separado
+        self.root.attributes('-fullscreen', True) # Pantalla completa al reproducir el video
         video_thread = threading.Thread(target=self._play)
         video_thread.start()
 
