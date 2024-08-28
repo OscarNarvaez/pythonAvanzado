@@ -50,7 +50,7 @@ class Quiz:
         trash_photo = ImageTk.PhotoImage(trash_image)
         trash_label = tk.Label(self.root, image=trash_photo)
         trash_label.image = trash_photo
-        trash_label.pack(pady=20)
+        trash_label.pack(pady=50)
 
         # Botones de los contenedores (Fijos en la pantalla)
         container1_button = tk.Button(self.root, image=self.container_images["plastico"],
