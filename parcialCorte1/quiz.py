@@ -7,41 +7,41 @@ class Quiz:
     def __init__(self, root):
         self.root = root
         self.container_images = self.load_container_images()
-        self.current_question = 0
 
         # Lista de imágenes de basuras y sus respuestas correctas
-        self.questions = [
-            {"correct": "plastico"},
-            {"correct": "comida"},
-            {"correct": "desperdicios"}
-        ]
         self.trash_images = [
-            "imagenes/basuras/bolsa_plastico.png",
-            "imagenes/basuras/botella_plastico.png",
-            "imagenes/basuras/botella_vidrio.png",
-            "imagenes/basuras/carton_papel.png",
-            "imagenes/basuras/espejo_vidrio.jpg",
-            "imagenes/basuras/papel_papel.png",
+            {"path": "imagenes/basuras/bolsa_plastico.png", "correct": "plastico"},
+            {"path": "imagenes/basuras/botella_plastico.png", "correct": "plastico"},
+            {"path": "imagenes/basuras/botella_vidrio.png", "correct": "otros"},
+            {"path": "imagenes/basuras/carton_papel.png", "correct": "comida"},
+            {"path": "imagenes/basuras/espejo_vidrio.jpg", "correct": "otros"},
+            {"path": "imagenes/basuras/papel_papel.png", "correct": "comida"},
         ]
+
+        # Cargar la primera pregunta
+        self.show_question()
 
     def load_container_images(self):
         # Cargar y redimensionar imágenes de los contenedores
-        container1_img = Image.open("imagenes/contenedores/contenedor_plastico.png").resize((100, 100))
-        container2_img = Image.open("imagenes/contenedores/contenedor_organico.png").resize((100, 100))
-        container3_img = Image.open("imagenes/contenedores/contenedor_otros.png").resize((100, 100))
+        container1_img = Image.open("imagenes/contenedores/contenedor_plastico.png").resize((100, 100))  # Contenedor de plástico
+        container2_img = Image.open("imagenes/contenedores/contenedor_organico.png").resize((100, 100))  # Contenedor de comida
+        container3_img = Image.open("imagenes/contenedores/contenedor_otros.png").resize((100, 100))  # Contenedor de desperdicios
         return {
             "plastico": ImageTk.PhotoImage(container1_img),
             "comida": ImageTk.PhotoImage(container2_img),
-            "desperdicios": ImageTk.PhotoImage(container3_img)
+            "otros": ImageTk.PhotoImage(container3_img)
         }
 
-    def start(self):
-        self.show_question()
-
     def show_question(self):
+        # Limpiar la pantalla de la imagen de basura anterior
+        for widget in self.root.winfo_children():
+            if isinstance(widget, tk.Label):
+                widget.destroy()
+
         # Seleccionar una imagen de basura aleatoriamente
-        trash_image_path = random.choice(self.trash_images)
-        correct_answer = self.get_correct_answer(trash_image_path)
+        question = random.choice(self.trash_images)
+        trash_image_path = question["path"]
+        correct_answer = question["correct"]
 
         # Mostrar la imagen de la basura
         trash_image = Image.open(trash_image_path).resize((100, 100))
@@ -50,35 +50,23 @@ class Quiz:
         trash_label.image = trash_photo
         trash_label.pack(pady=20)
 
-        # Botones de los contenedores
+        # Botones de los contenedores (Fijos en la pantalla)
         container1_button = tk.Button(self.root, image=self.container_images["plastico"],
                                       command=lambda: self.check_answer("plastico", correct_answer))
-        container1_button.pack(side=tk.LEFT, padx=5)
+        container1_button.place(x=100, y=400)  # Posicionamiento fijo
 
         container2_button = tk.Button(self.root, image=self.container_images["comida"],
                                       command=lambda: self.check_answer("comida", correct_answer))
-        container2_button.pack(side=tk.LEFT, padx=5)
+        container2_button.place(x=300, y=400)  # Posicionamiento fijo
 
-        container3_button = tk.Button(self.root, image=self.container_images["desperdicios"],
-                                      command=lambda: self.check_answer("desperdicios", correct_answer))
-        container3_button.pack(side=tk.LEFT, padx=5)
-
-    def get_correct_answer(self, image_path):
-        # Obtener la respuesta correcta basada en la imagen de basura
-        if "plastico" in image_path:
-            return "plastico"
-        elif "comida" in image_path:
-            return "comida"
-        elif "desperdicios" in image_path:
-            return "desperdicios"
+        container3_button = tk.Button(self.root, image=self.container_images["otros"],
+                                      command=lambda: self.check_answer("otros", correct_answer))
+        container3_button.place(x=500, y=400)  # Posicionamiento fijo
 
     def check_answer(self, answer, correct_answer):
         if answer == correct_answer:
             messagebox.showinfo("Correcto", "¡Buena elección!")
         else:
             messagebox.showerror("Incorrecto", f"Este producto no debe ir en el contenedor de {answer}. Intenta de nuevo.")
-        self.current_question += 1
-        if self.current_question < len(self.questions):
-            self.show_question()
-        else:
-            messagebox.showinfo("Quiz Finalizado", "¡Has completado el quiz de reciclaje!")
+        
+        self.show_question()
