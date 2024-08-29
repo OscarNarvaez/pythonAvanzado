@@ -1,6 +1,7 @@
 import tkinter as tk
 from video_player import VideoPlayer
 from quiz import Quiz
+import os
 
 class MainApp:
     def __init__(self, root):
@@ -8,8 +9,11 @@ class MainApp:
         self.root.title("Concientización Ambiental para Niños")
         self.root.geometry("800x600")
 
+        # Ruta absoluta del video
+        video_path = os.path.join(os.path.dirname(__file__), "video", "reciclajeTutorial.mp4")
+
         # Iniciar la reproducción del video
-        self.video_player = VideoPlayer(self.root, "video/reciclajeTutorial.mp4", self.show_quiz_button)
+        self.video_player = VideoPlayer(self.root, video_path, self.show_quiz_button)
         self.video_player.play_video()
 
     def show_quiz_button(self):
