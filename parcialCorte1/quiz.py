@@ -72,3 +72,4 @@ class Quiz:
             messagebox.showerror("Incorrecto", f"Este producto no debe ir en el contenedor de {answer}. Intenta de nuevo.")
         
         self.show_question()
+        
